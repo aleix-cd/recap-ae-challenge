@@ -1,5 +1,11 @@
-venv/
+# dbt
+logs/
 
+# DuckDB
+recap_database.duckdb
+
+# MacOS
 .DS_Store
 
-recap_database.duckdb
+# Python
+venv/
