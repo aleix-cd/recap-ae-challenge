@@ -17,12 +17,11 @@ con.execute(f"""
     select * from read_csv_auto('{INVOICE_TRANSACTION_MATCHES_CSV}');
 """)
 
-# Optional: preview tables
 print("Invoices preview:")
-con.sql("SELECT * FROM invoices LIMIT 5").show()
+con.sql("select * from invoices limit 5").show()
 
 print("\nInvoice-Transaction Matches preview:")
-con.sql("SELECT * FROM invoice_transaction_matches LIMIT 5").show()
+con.sql("select * from invoice_transaction_matches limit 5").show()
 
 # Close connection
 con.close()
