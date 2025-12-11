@@ -1,0 +1,129 @@
+version: 2
+
+models:
+  - name: stg_recap_app__invoices
+    description: >
+      A staging model containing one record per unique invoice from the raw source.
+      This table has been cleaned and cast to appropriate data types before being
+      passed to downstream transformation models.
+    columns:
+      - name: invoice_id
+        data_type: varchar
+        description: "{{ doc('invoice_id') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: company_id
+        data_type: varchar
+        description: "{{ doc('company_id') }}"
+        data_tests:
+          - not_null
+
+      - name: company_name
+        data_type: varchar
+        description: "{{ doc('company_name') }}"
+
+      - name: counter_party
+        data_type: varchar
+        description: "{{ doc('counter_party') }}"
+
+      - name: currency
+        data_type: varchar
+        description: "{{ doc('currency') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - EUR
+                  - GBP
+                  - USD
+
+      - name: invoice_number
+        data_type: varchar
+        description: "{{ doc('invoice_number') }}"
+        data_tests:
+          - not_null
+
+      - name: invoice_total_amount
+        data_type: double
+        description: "{{ doc('invoice_total_amount') }}"
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: false
+
+      - name: created_at
+        data_type: timestamp
+        description: "{{ doc('created_at') }}"
+
+      - name: invoice_date
+        data_type: date
+        description: "{{ doc('invoice_date') }}"
+
+      - name: invoice_due_date
+        data_type: date
+        description: "{{ doc('invoice_due_date') }}"
+        data_tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "> invoice_date"
+
+  - name: stg_recap_app__invoice_transaction_matches
+    description: >
+      A staging model that links an invoice to one or more corresponding transactions,
+      and includes metadata from an expert review process.
+    columns:
+      - name: pk
+        data_type: varchar
+        description: "{{ doc('pk') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: invoice_id
+        data_type: varchar
+        description: "{{ doc('invoice_id') }}"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                field: invoice_id
+                to: ref('stg_recap_app__invoices')
+
+      - name: transaction_id
+        data_type: varchar
+        description: "{{ doc('transaction_id') }}"
+        data_tests:
+          - not_null
+
+      - name: expert_email
+        data_type: varchar
+        description: "{{ doc('expert_email') }}"
+
+      - name: expert_opinion
+        data_type: varchar
+        description: "{{ doc('expert_opinion') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - approved
+                  - rejected
+
+      - name: expert_type
+        data_type: varchar
+        description: "{{ doc('expert_type') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - system
+                  - user
+
+      - name: created_at
+        data_type: timestamp
+        description: "{{ doc('created_at') }}"
