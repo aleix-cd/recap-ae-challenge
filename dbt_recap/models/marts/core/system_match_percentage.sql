@@ -17,4 +17,4 @@ with invoice_system_match_flag as (
 select
   (sum(has_system_match) * 100.0) / count(invoice_id)
     as percentage_invoices_with_system_match
-from invoice_system_match_flag;
+from invoice_system_match_flag

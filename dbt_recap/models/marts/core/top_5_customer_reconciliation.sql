@@ -39,10 +39,14 @@ company_reconciliation_summary as (
 select
   company_name,
   total_reconciled_invoices,
-  (system_reconciled_count * 100.0) / total_reconciled_invoices
-    as percentage_reconciled_by_system,
-  (user_reconciled_count * 100.0) / total_reconciled_invoices
-    as percentage_reconciled_by_user
+  round(
+    (system_reconciled_count * 100.0) / total_reconciled_invoices,
+    2
+  ) as percentage_reconciled_by_system,
+  round(
+    (user_reconciled_count * 100.0) / total_reconciled_invoices,
+    2
+  )as percentage_reconciled_by_user
 from company_reconciliation_summary
 order by total_reconciled_invoices desc
-limit 5;
+limit 5
