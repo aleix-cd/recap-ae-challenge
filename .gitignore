@@ -12,3 +12,4 @@ recap_database.duckdb
 
 # Python
 venv/
+.env
