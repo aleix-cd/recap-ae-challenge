@@ -102,3 +102,9 @@ select * from main.top_5_customer_reconciliation;
 
 .exit
 ```
+
+## Notes for reviewers:
+
+1. I created a synthetic FX Exchange Rates dataset, which you will find in `dbt_recap/seeds/ecb_exchange_rates.csv`. The purpose of this was to be able to convert to a single currency in the `monetary_amount_active_rejected_matches.sql` model.
+2. I was hitting a time constraint, so I did not write any documentation nor testing for the models in `dbt_recap/models/marts/core`.
+3. I also simulated as if the `invoice_transaction_matches.csv` file was fetched from `dlt`, and so I just put it in the `dlt/data/` directory. I could've also treat it as a `dbt seed` instead.
