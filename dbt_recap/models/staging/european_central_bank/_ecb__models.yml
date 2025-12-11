@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: stg_ecb__daily_exchange_rates
+    description: "Holds information about daily exchange rates for USD, EUR, and GBP."
+    columns:
+      - name: exchange_rate_id
+        data_type: string
+        description: "{{ doc('exchange_rate_id') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: to_currency
+        data_type: string
+        description: "{{ doc('to_currency') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "EUR"
+                  - "GBP"
+                  - "USD"
+
+      - name: from_currency
+        data_type: string
+        description: "{{ doc('from_currency') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "EUR"
+                  - "GBP"
+                  - "USD"
+
+      - name: exchange_rate
+        data_type: float64
+        description: "{{ doc('exchange_rate') }}"
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: false
+
+      - name: exchange_rate_provider
+        data_type: string
+        description: "{{ doc('exchange_rate_provider') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "European Central Bank"
+
+      - name: valid_from
+        data_type: date
+        description: "{{ doc('valid_from') }}"
+        data_tests:
+          - not_null
