@@ -79,7 +79,7 @@ models:
     columns:
       - name: pk
         data_type: varchar
-        description: "{{ doc('pk') }}"
+        description: "{{ doc('invoice_transaction_matches_pk') }}"
         data_tests:
           - unique
           - not_null

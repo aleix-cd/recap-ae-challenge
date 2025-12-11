@@ -38,7 +38,7 @@ The official date the invoice document was issued.
 The date by which the payment for the invoice is expected.
 {% enddocs %}
 
-{% docs pk %}
+{% docs invoice_transaction_matches_pk %}
 The primary key of this match record. It is a hash of invoice_id, transaction_id and created_at.
 {% enddocs %}
 

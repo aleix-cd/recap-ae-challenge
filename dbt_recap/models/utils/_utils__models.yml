@@ -1,0 +1,251 @@
+version: 2
+
+models:
+  - name: calendar
+    description: "A utility table containing a comprehensive date dimension with various date-related attributes and period flags for reporting and analysis."
+    columns:
+      - name: calendar_date
+        data_type: date
+        description: "{{ doc('calendar_date') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: year_actual
+        data_type: int64
+        description: "{{ doc('year_actual') }}"
+        data_tests:
+          - not_null
+
+      - name: day_of_year
+        data_type: int64
+        description: "{{ doc('day_of_year') }}"
+        data_tests:
+          - not_null
+
+      - name: first_day_of_year
+        data_type: date
+        description: "{{ doc('first_day_of_year') }}"
+        data_tests:
+          - not_null
+
+      - name: quarter_actual
+        data_type: int64
+        description: "{{ doc('quarter_actual') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+
+      - name: year_quarter
+        data_type: string
+        description: "{{ doc('year_quarter') }}"
+        data_tests:
+          - not_null
+
+      - name: day_of_quarter
+        data_type: int64
+        description: "{{ doc('day_of_quarter') }}"
+        data_tests:
+          - not_null
+
+      - name: first_day_of_quarter
+        data_type: date
+        description: "{{ doc('first_day_of_quarter') }}"
+        data_tests:
+          - not_null
+
+      - name: month_name
+        data_type: string
+        description: "{{ doc('month_name') }}"
+        data_tests:
+          - not_null
+
+      - name: month_actual
+        data_type: int64
+        description: "{{ doc('month_actual') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  - 6
+                  - 7
+                  - 8
+                  - 9
+                  - 10
+                  - 11
+                  - 12
+
+      - name: day_of_month
+        data_type: int64
+        description: "{{ doc('day_of_month') }}"
+        data_tests:
+          - not_null
+
+      - name: first_day_of_month
+        data_type: date
+        description: "{{ doc('first_day_of_month') }}"
+        data_tests:
+          - not_null
+
+      - name: last_day_of_month
+        data_type: date
+        description: "{{ doc('last_day_of_month') }}"
+        data_tests:
+          - not_null
+
+      - name: first_day_of_week
+        data_type: date
+        description: "{{ doc('first_day_of_week') }}"
+        data_tests:
+          - not_null
+
+      - name: day_of_week
+        data_type: int64
+        description: "{{ doc('day_of_week') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  - 6
+                  - 7
+
+      - name: last_day_of_week
+        data_type: date
+        description: "{{ doc('last_day_of_week') }}"
+        data_tests:
+          - not_null
+
+      - name: day_name
+        data_type: string
+        description: "{{ doc('day_name') }}"
+        data_tests:
+          - not_null
+
+      - name: in_mtd_current_year
+        data_type: boolean
+        description: "{{ doc('in_mtd_current_year') }}"
+
+      - name: in_qtd_current_year
+        data_type: boolean
+        description: "{{ doc('in_qtd_current_year') }}"
+
+      - name: in_ytd_current_year
+        data_type: boolean
+        description: "{{ doc('in_ytd_current_year') }}"
+
+      - name: today_last_year
+        data_type: date
+        description: "{{ doc('today_last_year') }}"
+        data_tests:
+          - not_null
+
+      - name: in_mtd_last_year
+        data_type: boolean
+        description: "{{ doc('in_mtd_last_year') }}"
+
+      - name: in_qtd_last_year
+        data_type: boolean
+        description: "{{ doc('in_qtd_last_year') }}"
+
+      - name: in_ytd_last_year
+        data_type: boolean
+        description: "{{ doc('in_ytd_last_year') }}"
+
+      - name: today_last_2_year
+        data_type: date
+        description: "{{ doc('today_last_2_year') }}"
+        data_tests:
+          - not_null
+
+      - name: in_mtd_last_2_year
+        data_type: boolean
+        description: "{{ doc('in_mtd_last_2_year') }}"
+
+      - name: in_qtd_last_2_year
+        data_type: boolean
+        description: "{{ doc('in_qtd_last_2_year') }}"
+
+      - name: in_ytd_last_2_year
+        data_type: boolean
+        description: "{{ doc('in_ytd_last_2_year') }}"
+
+  - name: exchange_rates
+    description: "A utility table containing daily exchange rates for currency pairs (GBP to EUR and USD to EUR) with validity periods, joined to the calendar dimension for easy date-based lookups."
+    columns:
+      - name: pk
+        data_type: string
+        description: "{{ doc('pk') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: calendar_date
+        data_type: date
+        description: "{{ doc('calendar_date') }}"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('calendar')
+                field: calendar_date
+
+      - name: to_currency
+        data_type: string
+        description: "{{ doc('to_currency') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "EUR"
+
+      - name: from_currency
+        data_type: string
+        description: "{{ doc('from_currency') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "GBP"
+                  - "USD"
+
+      - name: exchange_rate
+        data_type: float64
+        description: "{{ doc('exchange_rate') }}"
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: false
+
+      - name: valid_from
+        data_type: date
+        description: "{{ doc('valid_from') }}"
+        data_tests:
+          - not_null
+
+      - name: valid_to
+        data_type: date
+        description: "{{ doc('valid_to') }}"
+        data_tests:
+          - not_null

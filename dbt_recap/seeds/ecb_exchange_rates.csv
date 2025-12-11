@@ -1,10 +1,10 @@
 id,to_currency,from_currency,exchange_rate,provider,valid_from
-eib_20250102_EUR_USD,USD,EUR,1.086101,European Central Bank,2025-01-01
-eib_20250102_USD_EUR,EUR,USD,0.921832,European Central Bank,2025-01-01
-eib_20250102_EUR_GBP,GBP,EUR,0.855341,European Central Bank,2025-01-01
-eib_20250102_GBP_EUR,EUR,GBP,1.170032,European Central Bank,2025-01-01
-eib_20250102_USD_GBP,GBP,USD,1.270234,European Central Bank,2025-01-01
-eib_20250102_GBP_USD,USD,GBP,0.787421,European Central Bank,2025-01-01
+eib_20250101_EUR_USD,USD,EUR,1.086101,European Central Bank,2025-01-01
+eib_20250101_USD_EUR,EUR,USD,0.921832,European Central Bank,2025-01-01
+eib_20250101_EUR_GBP,GBP,EUR,0.855341,European Central Bank,2025-01-01
+eib_20250101_GBP_EUR,EUR,GBP,1.170032,European Central Bank,2025-01-01
+eib_20250101_USD_GBP,GBP,USD,1.270234,European Central Bank,2025-01-01
+eib_20250101_GBP_USD,USD,GBP,0.787421,European Central Bank,2025-01-01
 eib_20250102_EUR_USD,USD,EUR,1.085099,European Central Bank,2025-01-02
 eib_20250102_USD_EUR,EUR,USD,0.921575,European Central Bank,2025-01-02
 eib_20250102_EUR_GBP,GBP,EUR,0.854946,European Central Bank,2025-01-02
