@@ -1,0 +1,27 @@
+sources:
+  - name: recap_app
+    database: "{{ env_var('DBT_DATABASE', 'recap_database') }}"
+    schema: main
+    freshness:
+      warn_after: {count: 24, period: hour}
+      # latest invoice is from 2025-11-30
+      error_after: {count: 15, period: day}
+    loaded_at_field: created_at
+
+    tables:
+      - name: invoices
+        description: "Holds information for all re:cap App invoices."
+        columns:
+          - name: invoice_id
+            tests:
+              - unique
+              - not_null
+      - name: invoice_transaction_matches
+        description: "Holds information that matches invoices to transactions in the re:cap App."
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns:
+                  - invoice_id
+                  - transaction_id
+                  - created_at
