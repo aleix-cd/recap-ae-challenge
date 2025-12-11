@@ -12,8 +12,8 @@ The entire pipeline is orchestrated through a single command: `main.py`.
 
 This guide assumes you are running **macOS** and have the following tools installed:
 
-* **Homebrew:** For package management (`brew`).
-* **pyenv:** For managing Python versions.
+* **Homebrew:** for package management (`brew`).
+* **pyenv:** for managing Python versions.
 
 ## 1. Setup environment and dependencies
 
@@ -37,7 +37,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 1.3. Install dependencies
+### 1.3. Install Python dependencies
 
 You will have a `requirements.txt` file listing all the dependencies, so just install from there:
 
@@ -45,7 +45,18 @@ You will have a `requirements.txt` file listing all the dependencies, so just in
 python3 -m pip install -r requirements.txt
 ```
 
-### 1.4. Create an `.env` file and source the variables
+### 1.4. Install DuckDB via `homebrew`
+
+Since you might want to run DuckDB from the command line (e.g. to run in-line queries), you will need to install
+DuckDB via `homebrew` for an easy way to enable its CLI:
+
+```bash
+brew update
+brew install duckdb
+```
+
+### 1.5. Create an `.env` file and source the variables
+
 Create a file named `.env` in the root of the project with the following content:
 
 ```
@@ -58,7 +69,7 @@ And then, load the variable:
 source .env
 ```
 
-### 1.5. Configure dbt profiles
+### 1.6. Configure dbt profiles
 
 The project is configured to use the `recap_database.duckdb` file created in the root directory.
 
