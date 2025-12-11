@@ -1,5 +1,8 @@
 # dbt
 logs/
+target/
+dbt_packages/
+logs/
 
 # DuckDB
 recap_database.duckdb
