@@ -15,7 +15,7 @@ This guide assumes you are running **macOS** and have the following tools instal
 * **Homebrew:** For package management (`brew`).
 * **pyenv:** For managing Python versions.
 
-## 1. Setup Environment and Dependencies
+## 1. Setup environment and dependencies
 
 We will use `pyenv` to make sure the we're all using the smae Python version, and `venv` for package management.
 
@@ -28,7 +28,7 @@ pyenv install 3.11.11
 pyenv local 3.11.11
 ```
 
-### 1.2. Create and Activate Virtual Environment
+### 1.2. Create and activate the virtual environment
 
 Create and activate the environment (venv):
 
@@ -37,7 +37,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 1.3. Install Dependencies
+### 1.3. Install dependencies
 
 You will have a `requirements.txt` file listing all the dependencies, so just install from there:
 
@@ -45,7 +45,20 @@ You will have a `requirements.txt` file listing all the dependencies, so just in
 python3 -m pip install -r requirements.txt
 ```
 
-### 1.4. Configure dbt Profiles
+### 1.4. Create an `.env` file and source the variables
+Create a file named `.env` in the root of the project with the following content:
+
+```
+DBT_DATABASE=~/path/to/your/recap_database.duckdb
+```
+
+And then, load the variable:
+
+```bash
+source .env
+```
+
+### 1.5. Configure dbt profiles
 
 The project is configured to use the `recap_database.duckdb` file created in the root directory.
 
