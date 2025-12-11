@@ -1,5 +1,5 @@
 with seed as (
-  select * from {{ ref('daily_exchange_rates') }}
+  select * from {{ ref('ecb_exchange_rates') }}
 ),
 
 renamed as (
