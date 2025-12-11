@@ -22,3 +22,5 @@ models:
     staging:
       +materialized: view
       +schema: stg
+    utils:
+      +materialized: view
